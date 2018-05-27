@@ -15,6 +15,7 @@ class TableauController: UIViewController, UITableViewDelegate, UITableViewDataS
     var chansons = [Chanson]()
     
     let identifiantCell = "ChansonCell"
+    let identifiantSegue = "VersVideo"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,11 +24,11 @@ class TableauController: UIViewController, UITableViewDelegate, UITableViewDataS
         ajouterChanson()
         title = "Mes videos préférées"
     }
-//Nombre de ligne
+// Nombre de ligne
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return chansons.count
     }
- //Quel cellule doit-on peupler
+// Quel cellule doit-on peupler
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let chanson = chansons[indexPath.row]
         if let cell = tableView.dequeueReusableCell(withIdentifier: identifiantCell) as? ChansonCell {
@@ -37,10 +38,24 @@ class TableauController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         return UITableViewCell()
     }
-    
+// Réglage de l'espace entre  les cellules
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     } 
+//La ligne selectionner
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let chanon = chansons[indexPath.row]
+        performSegue(withIdentifier: identifiantSegue, sender: chanon)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == identifiantSegue {
+            if let nouveauController = segue.destination as? VideoController {
+                nouveauController.chanson = sender as? Chanson
+            }
+            
+        }
+    }
     
     
     func ajouterChanson() {
