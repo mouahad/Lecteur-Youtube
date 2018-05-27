@@ -28,6 +28,7 @@ class ChansonCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+     // Comment/Quel cellule doit-on peupler
     func creerCell(_ chanson: Chanson) {
         self.chanson = chanson
         telechachargerImage()
@@ -42,18 +43,24 @@ class ChansonCell: UITableViewCell {
     func telechachargerImage(){
         miniature.image = #imageLiteral(resourceName: "logo")
         
-        if let url = URL(string: self.chanson.miniatureUrl) {
-            let session = URLSession.shared
-            let task = session.dataTask(with: url) { (data, response, error) in
-                if let imageData = data, let image = UIImage(data: imageData) {
-                    DispatchQueue.main.async {
+        
+        // IMPORTANT A COMPRENDRE
+        
+        if let url = URL(string: self.chanson.miniatureUrl)  {  //si existe
+            let session = URLSession.shared // ouvre une session "shared est type d'accesseur"
+            let task = session.dataTask(with: url) { (data, response, error) in //reponse des requete ____ ce qui nous amene dans un traitment " arriere plan / background / de fond".
+                if let imageData = data, let image = UIImage(data: imageData) { //on s'occupe que du data et non pas du response ni d'error
+                    DispatchQueue.main.async { // dispatchqueu est queu principal. main=principal.asyun=asyunchrone
                         self.miniature.image = image
                     }
                 }
             }
-            task.resume()
+            task.resume() // on revient sur notre tache principal "main"
         }
     }
+    
+    
+// Attention de bien configurer la "Info.plist" concernant le telechargement http/https(sécurisé)
     
     
 }

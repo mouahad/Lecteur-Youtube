@@ -22,13 +22,13 @@ class TableauController: UIViewController, UITableViewDelegate, UITableViewDataS
         tableView.delegate = self
         tableView.dataSource = self
         ajouterChanson()
-        title = "Mes videos préférées"
+        navigationController?.title = "Mes videos préférées"
     }
-// Nombre de ligne
+// Nombre de ligne -> numberOfRows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return chansons.count
     }
-// Quel cellule doit-on peupler
+// Comment/Quel cellule doit-on peupler -> cellForRow
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let chanson = chansons[indexPath.row]
         if let cell = tableView.dequeueReusableCell(withIdentifier: identifiantCell) as? ChansonCell {
@@ -38,11 +38,11 @@ class TableauController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         return UITableViewCell()
     }
-// Réglage de l'espace entre  les cellules
+// Réglage de l'espace entre -> les cellules heightForRow
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     } 
-//La ligne selectionner
+//La ligne selectionner -> didselectRow
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let chanon = chansons[indexPath.row]
         performSegue(withIdentifier: identifiantSegue, sender: chanon)
