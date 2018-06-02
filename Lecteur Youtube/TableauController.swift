@@ -22,7 +22,7 @@ class TableauController: UIViewController, UITableViewDelegate, UITableViewDataS
         tableView.delegate = self
         tableView.dataSource = self
         ajouterChanson()
-        navigationController?.title = "Mes videos préférées"
+        title = "Mes videos préférées"
     }
 // Nombre de ligne -> numberOfRows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,8 +44,8 @@ class TableauController: UIViewController, UITableViewDelegate, UITableViewDataS
     } 
 //La ligne selectionner -> didselectRow
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let chanon = chansons[indexPath.row]
-        performSegue(withIdentifier: identifiantSegue, sender: chanon)
+        let chanson = chansons[indexPath.row]
+        performSegue(withIdentifier: identifiantSegue, sender: chanson)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
